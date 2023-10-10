@@ -12,13 +12,24 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
 	SqlSession sqlSession;
-
+	private MemberService_Mapper msm;
+	
+	@Autowired
+	MemberServiceImpl(SqlSession sqlSession){
+		this.msm = sqlSession.getMapper(MemberService_Mapper.class);
+	}
+	
 	@Override
 	public int memberInsert(MemberVo mv) {
-		
-		MemberService_Mapper msm = sqlSession.getMapper(MemberService_Mapper.class);
 		int value = msm.memberInsert(mv);
 		return value;
+	}
+
+	@Override
+	public MemberVo memberLogin(String memberId) {
+		MemberVo mv = null;
+		mv = msm.memberLogin(memberId);
+		return mv;
 	}
 	
 	

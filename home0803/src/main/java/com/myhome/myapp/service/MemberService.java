@@ -4,4 +4,5 @@ import com.myhome.myapp.domain.MemberVo;
 
 public interface MemberService {
 	public int memberInsert(MemberVo mv);
+	public MemberVo memberLogin(String memberId);
 }

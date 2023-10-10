@@ -9,4 +9,7 @@ INSERT INTO member0803(MEMBERID,MEMBERPWD,MEMBERNAME,MEMBERBIRTH,MEMBERGENDER,ME
 VALUES(#{memberId},#{memberPwd},#{memberName},#{memberBirth},#{memberGender},#{memberPhone},#{memberEmail},#{memberAddr},#{memberHobby})
 </insert>
 
+<select id="memberLogin" parameterType="String" resultType="mv">
+SELECT MIDX, MEMBERID, MEMBERNAME, MEMBERPWD FROM member0803 WHERE DELYN='N' AND MEMBERID=#{memberId}
+</select>
 </mapper>
