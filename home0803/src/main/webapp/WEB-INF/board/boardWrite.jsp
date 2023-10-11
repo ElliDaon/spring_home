@@ -77,7 +77,7 @@ function check(){
 	
 	fm.action = "<%=request.getContextPath()%>/board/boardWriteAction.do";  //처리하기위해 이동하는 주소
 	fm.method = "post";  //이동하는 방식  get 노출시킴 post 감추어서 전달
-	fm.enctype= "multipart/form-data";
+	//fm.enctype= "multipart/form-data";
 	fm.submit();
 	
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myhome.myapp.persistance.BoardService_Mapper">
+
+<insert id="boardInsert" parameterType="bv">
+<selectKey resultType="int" keyProperty="bidx" order="AFTER">
+SELECT max(bidx) as bidx FROM board0803
+</selectKey>
+INSERT INTO board0803(ORIGINBIDX, DEPTH, LEVEL_, SUBJECT, CONTENTS, WRITER, PWD, MIDX)
+VALUES(null, null, null, #{subject}, #{contents}, #{writer}, #{pwd}, #{midx})
+</insert>
+
+<update id="boardOriginBidxUpdate" parameterType="int">
+UPDATE board0803 SET ORIGINBIDX=#{bidx} WHERE BIDX=#{bidx}
+</update>
+</mapper>

@@ -97,14 +97,14 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type: "post",
-			url: "./memberIdCheck.jsp",
+			url: "./memberIdCheck.do",
 			data: {"memberId" : memberId},
 			dataType: "json",
 			success: function(data){
 				var fm = document.frm;
 				if(fm.memberId.value==""){
 					alert("아이디를 입력해주세요!!");
-				}else if(data.cnt == 0){
+				}else if(data.value == 0){
 					alert("사용할 수 있는 아이디입니다.");
 				}else{
 					alert("사용할 수 없는 아이디입니다ㅠㅠ.");
@@ -213,7 +213,7 @@ function check(){
 		<ul>
 			<li><a href="memberList.do">회원목록</a></li>
 			<li><a href="../board/boardList.do">게시글 목록</a></li>
-			<li><a href="../board/boardWrite.html">게시글 쓰기</a></li>
+			<li><a href="../board/boardWrite.do">게시글 쓰기</a></li>
 			<li><a href="memberLogin.do">로그인</a></li>
 			<li><a href="memberJoin.do">회원가입</a></li>
 		</ul>
@@ -226,7 +226,7 @@ function check(){
 				<th style="width: 200px" maxlength="30">아이디</th>
 				<td><input type="text" name="memberId" id="memberId" value=""
 					placeholder="ID를 입력하세요">
-					<input type="button" name="byn" id="btn" value="아이디 중복체크">
+					<input type="button" name="btn" id="btn" value="아이디 중복체크">
 					<!-- 
 <input type="button" name="memberIdCheck" value="아이디 중복체크">
 <button type="button" name="membeButtonTest">이런버튼도있어요</button>

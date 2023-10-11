@@ -1,5 +1,7 @@
 package com.myhome.myapp.service;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,18 @@ public class MemberServiceImpl implements MemberService{
 		MemberVo mv = null;
 		mv = msm.memberLogin(memberId);
 		return mv;
+	}
+
+	@Override
+	public int memberIdCheck(String memberId) {
+		int value = msm.memberIdCheck(memberId);
+		return value;
+	}
+
+	@Override
+	public ArrayList<MemberVo> memberList() {
+		ArrayList<MemberVo> list = msm.memberList();
+		return list;
 	}
 	
 	

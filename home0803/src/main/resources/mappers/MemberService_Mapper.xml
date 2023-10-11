@@ -12,4 +12,12 @@ VALUES(#{memberId},#{memberPwd},#{memberName},#{memberBirth},#{memberGender},#{m
 <select id="memberLogin" parameterType="String" resultType="mv">
 SELECT MIDX, MEMBERID, MEMBERNAME, MEMBERPWD FROM member0803 WHERE DELYN='N' AND MEMBERID=#{memberId}
 </select>
+
+<select id="memberIdCheck" parameterType="String" resultType="int">
+SELECT COUNT(*) AS cnt FROM member0803 WHERE MEMBERID=#{memberId}
+</select>
+
+<select id="memberList" resultType="mv">
+SELECT * FROM member0803 WHERE DELYN='N' ORDER BY MIDX DESC
+</select>
 </mapper>

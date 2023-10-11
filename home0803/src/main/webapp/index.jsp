@@ -17,6 +17,7 @@
 <%} else{ %>
 <a href="<%=request.getContextPath()%>/member/memberLogout.do">로그아웃</a>
 <%} %>
-
+<br>
+<a href="<%=request.getContextPath()%>/board/boardWrite.do">게시글쓰기</a>
 </body>
 </html>
