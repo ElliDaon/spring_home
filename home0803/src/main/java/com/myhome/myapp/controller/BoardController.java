@@ -1,10 +1,14 @@
 package com.myhome.myapp.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myhome.myapp.domain.BoardVo;
 import com.myhome.myapp.service.BoardService;
@@ -34,9 +38,17 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/boardList.do")
-	public String boardList() {
-		
-		
+	public String boardList(Model model) {
+		ArrayList<BoardVo> list = bs.boardList();
+		model.addAttribute("list", list);
 		return "/board/boardList";
 	}
+	
+	@RequestMapping(value = "/boardContents.do")
+	public String boardContents(@RequestParam("bidx") int bidx, Model model) {
+		BoardVo bv = bs.boardContents(bidx);
+		model.addAttribute("bv", bv);
+		return "/board/boardContents";
+	}
+	
 }

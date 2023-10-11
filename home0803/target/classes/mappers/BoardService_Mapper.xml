@@ -15,4 +15,16 @@ VALUES(null, null, null, #{subject}, #{contents}, #{writer}, #{pwd}, #{midx})
 <update id="boardOriginBidxUpdate" parameterType="int">
 UPDATE board0803 SET ORIGINBIDX=#{bidx} WHERE BIDX=#{bidx}
 </update>
+
+<select id="boardList" resultType="bv">
+SELECT * FROM board0803 WHERE DELYN='N' ORDER BY ORIGINBIDX DESC, DEPTH ASC
+</select>
+
+<select id="boardContents" parameterType="int" resultType="bv">
+SELECT * FROM board0803 WHERE BIDX=#{bidx}
+</select>
+
+<update id="boardViewCnt" parameterType="int">
+UPDATE board0803 SET VIEWCNT = VIEWCNT+1 WHERE BIDX=#{bidx}
+</update>
 </mapper>

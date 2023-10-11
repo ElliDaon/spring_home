@@ -1,5 +1,7 @@
 package com.myhome.myapp.service;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,19 @@ public class BoardServiceImpl implements BoardService{
 		int bidx = bv.getBidx();
 		bsm.boardOriginBidxUpdate(bidx);
 		return result;
+	}
+
+	@Override
+	public ArrayList<BoardVo> boardList() {
+		ArrayList<BoardVo> list = bsm.boardList();
+		return list;
+	}
+
+	@Override
+	public BoardVo boardContents(int bidx) {
+		bsm.boardViewCnt(bidx);
+		BoardVo bv = bsm.boardContents(bidx);
+		return bv;
 	}
 
 }
