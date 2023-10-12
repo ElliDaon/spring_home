@@ -19,5 +19,7 @@
 <%} %>
 <br>
 <a href="<%=request.getContextPath()%>/board/boardWrite.do">게시글쓰기</a>
+<br>
+<a href="<%=request.getContextPath()%>/board/boardList.do">게시글목록</a>
 </body>
 </html>

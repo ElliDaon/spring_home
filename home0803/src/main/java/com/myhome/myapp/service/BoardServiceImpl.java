@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myhome.myapp.domain.BoardVo;
+import com.myhome.myapp.domain.SearchCriteria;
 import com.myhome.myapp.persistance.BoardService_Mapper;
-import com.myhome.myapp.persistance.MemberService_Mapper;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -31,8 +31,12 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public ArrayList<BoardVo> boardList() {
-		ArrayList<BoardVo> list = bsm.boardList();
+	public ArrayList<BoardVo> boardList(SearchCriteria scri) {
+		
+		int value = (scri.getPage()-1)*10;
+		scri.setPage(value);
+		
+		ArrayList<BoardVo> list = bsm.boardList(scri);
 		return list;
 	}
 
@@ -41,6 +45,12 @@ public class BoardServiceImpl implements BoardService{
 		bsm.boardViewCnt(bidx);
 		BoardVo bv = bsm.boardContents(bidx);
 		return bv;
+	}
+
+	@Override
+	public int boardTotalCount(SearchCriteria scri) {
+		int value=bsm.boardTotalCount(scri);
+		return value;
 	}
 
 }

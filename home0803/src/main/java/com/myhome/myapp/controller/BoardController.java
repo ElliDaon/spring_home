@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myhome.myapp.domain.BoardVo;
+import com.myhome.myapp.domain.PageMaker;
+import com.myhome.myapp.domain.SearchCriteria;
 import com.myhome.myapp.service.BoardService;
 
 @Controller
@@ -18,7 +20,10 @@ import com.myhome.myapp.service.BoardService;
 public class BoardController {
 	
 	@Autowired
-	BoardService bs;
+	private BoardService bs;
+	
+	@Autowired
+	private PageMaker pm;
 	
 	@RequestMapping(value = "/boardWrite.do")
 	public String boardWrite() {
@@ -38,9 +43,14 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/boardList.do")
-	public String boardList(Model model) {
-		ArrayList<BoardVo> list = bs.boardList();
+	public String boardList(SearchCriteria scri, Model model) {
+		int totalCount = bs.boardTotalCount(scri);
+		pm.setScri(scri);
+		pm.setTotalCount(totalCount);
+		
+		ArrayList<BoardVo> list = bs.boardList(scri);
 		model.addAttribute("list", list);
+		model.addAttribute("pm", pm);
 		return "/board/boardList";
 	}
 	
