@@ -53,4 +53,16 @@ public class BoardServiceImpl implements BoardService{
 		return value;
 	}
 
+	@Override
+	public int boardModify(BoardVo bv) {
+		int value = bsm.boardModify(bv);
+		return value;
+	}
+
+	@Override
+	public int boardDelete(BoardVo bv) {
+		int value = bsm.boardDelete(bv);
+		return value;
+	}
+
 }
