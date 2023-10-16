@@ -14,4 +14,6 @@ public interface BoardService_Mapper {
 	public int boardTotalCount(SearchCriteria scri);
 	public int boardModify(BoardVo bv);
 	public int boardDelete(BoardVo bv);
+	public int boardUpdateDepth(BoardVo bv);
+	public int boardReply(BoardVo bv);
 }

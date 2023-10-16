@@ -14,17 +14,29 @@ public class CommentServiceImpl implements CommentService{
 
 	@Autowired
 	SqlSession sqlSession;
-	private CommentService_Mapper bsm;
+	private CommentService_Mapper csm;
 	
 	@Autowired
 	CommentServiceImpl(SqlSession sqlSession){
-		this.bsm = sqlSession.getMapper(CommentService_Mapper.class);
+		this.csm = sqlSession.getMapper(CommentService_Mapper.class);
 	}
 	
 	@Override
-	public ArrayList<CommentVo> commentList() {
-		ArrayList<CommentVo> commentList = bsm.commentList();
+	public ArrayList<CommentVo> commentList(int bidx) {
+		ArrayList<CommentVo> commentList = csm.commentList(bidx);
 		return commentList;
+	}
+
+	@Override
+	public int commentWrite(CommentVo cv) {
+		int value = csm.commentWrite(cv);
+		return value;
+	}
+
+	@Override
+	public int commentDelete(int cidx) {
+		int value = csm.commentDelete(cidx);
+		return value;
 	}
 
 }

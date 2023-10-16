@@ -4,8 +4,16 @@
 
 <mapper namespace="com.myhome.myapp.persistance.CommentService_Mapper">
 
-<select id="commentList" resultType="cv">
-select * from comment0803 where delyn='N'
+<select id="commentList" parameterType="int" resultType="cv">
+select * from comment0803 where delyn='N'AND bidx=#{bidx}
 </select>
 
+<insert id="commentWrite" parameterType="cv">
+INSERT INTO comment0803(cwriter, ccontents, bidx, midx, cwriteday)
+VALUE(#{cwriter},#{ccontents},#{bidx},#{midx},now());
+</insert>
+
+<update id="commentDelete" parameterType="int">
+UPDATE comment0803 SET DELYN='Y' WHERE cidx=#{cidx}
+</update>
 </mapper>

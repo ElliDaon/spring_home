@@ -19,6 +19,7 @@ public class BoardVo {
 	private String pwd;
 	private String filename2;
 	private MultipartFile filename;
+	private int commentcnt;
 	
 
 	public String getModifyday() {
@@ -116,6 +117,12 @@ public class BoardVo {
 	}
 	public void setFilename(MultipartFile filename) {
 		this.filename = filename;
+	}
+	public int getCommentcnt() {
+		return commentcnt;
+	}
+	public void setCommentcnt(int commentcnt) {
+		this.commentcnt = commentcnt;
 	}
 
 	

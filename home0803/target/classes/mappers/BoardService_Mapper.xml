@@ -9,7 +9,7 @@
 SELECT max(bidx) as bidx FROM board0803
 </selectKey>
 INSERT INTO board0803(ORIGINBIDX, DEPTH, LEVEL_, SUBJECT, CONTENTS, WRITER, PWD, MIDX,ip,filename)
-VALUES(null, null, null, #{subject}, #{contents}, #{writer}, #{pwd}, #{midx},#{ip},#{filename2})
+VALUES(null, 0, 0, #{subject}, #{contents}, #{writer}, #{pwd}, #{midx},#{ip},#{filename2})
 </insert>
 
 <update id="boardOriginBidxUpdate" parameterType="int">
@@ -26,7 +26,12 @@ UPDATE board0803 SET ORIGINBIDX=#{bidx} WHERE BIDX=#{bidx}
 </sql>
 
 <select id="boardList" parameterType="scri" resultType="bv">
-SELECT * FROM board0803 WHERE DELYN='N' 
+SELECT b.bidx, b.originbidx, b.depth, b.level_, b.subject, b.writer, b.viewcnt, b.writeday, ifnull(c.cnt,0) as commentcnt 
+FROM board0803 b
+LEFT OUTER JOIN
+(SELECT bidx, COUNT(*) AS cnt FROM comment0803 WHERE DELYN='N' GROUP BY bidx) c
+ON b.bidx=c.bidx
+WHERE DELYN='N'
 <include refid="search"/>
 ORDER BY ORIGINBIDX DESC, DEPTH ASC LIMIT #{page},#{perPageNum}
 </select>
@@ -53,4 +58,17 @@ WHERE BIDX=#{bidx} AND PWD=#{pwd}
 UPDATE board0803 SET DELYN='Y'
 WHERE BIDX=#{bidx} AND PWD=#{pwd}
 </update>
+<update id="boardUpdateDepth" parameterType="bv">
+UPDATE board0803 SET DEPTH = DEPTH+1
+WHERE DEPTH > #{depth} AND ORIGINBIDX=#{originbidx}
+</update>
+
+<insert id="boardReply" parameterType="bv">
+<selectKey resultType="int" keyProperty="bidx" order="AFTER">
+SELECT max(bidx) as bidx FROM board0803
+</selectKey>
+INSERT INTO board0803(ORIGINBIDX, DEPTH, LEVEL_, SUBJECT, CONTENTS, WRITER, PWD, MIDX, ip)
+VALUES(#{originbidx}, #{depth}+1, #{level_}+1, #{subject}, #{contents}, #{writer}, #{pwd}, #{midx},#{ip})
+</insert>
+
 </mapper>

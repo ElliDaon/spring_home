@@ -65,4 +65,11 @@ public class BoardServiceImpl implements BoardService{
 		return value;
 	}
 
+	@Override
+	public int boardReply(BoardVo bv) {
+		bsm.boardUpdateDepth(bv);
+		int value = bsm.boardReply(bv);
+		return value;
+	}
+
 }

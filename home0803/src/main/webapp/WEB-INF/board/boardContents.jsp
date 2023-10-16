@@ -45,7 +45,7 @@ $(document).ready(function(){
 			},
 			cache : false,
 			success : function(data){
-				alert("통신성공");
+				
 				//alert(data.value);
 				//if(data.value==1){
 				//	alert("등록성공");
@@ -71,7 +71,7 @@ $.boardCommentList= function(){
 	
 	$.ajax({
 		type : "get",
-		url : "${pageContext.request.contextPath}/comment/commentList.do",
+		url : "${pageContext.request.contextPath}/comment/commentList.do?bidx=${bv.bidx}",
 		dataType : "json",
 		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 		cache : false,

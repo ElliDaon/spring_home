@@ -1,10 +1,15 @@
 package com.myhome.myapp.controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myhome.myapp.domain.CommentVo;
@@ -19,10 +24,10 @@ public class CommentController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/commentList.do", produces = "application/text; charset=utf8")
-	public String commentList() {
+	public String commentList(@RequestParam("bidx") int bidx) {
 		
 		String str = "";
-		ArrayList<CommentVo> list = cs.commentList();
+		ArrayList<CommentVo> list = cs.commentList(bidx);
 		int size = list.size();
 		int cidx = 0;
 		String cwriter = "";
@@ -45,6 +50,25 @@ public class CommentController {
 		}
 		
 		str = "["+str+"]";
+		return str;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/commentWrite.do")
+	public String commentWrite(CommentVo cv, HttpSession session) throws Exception {
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		cv.setCip(ip);
+		int result = cs.commentWrite(cv);
+		String str = "{\"value\":\""+result+"\"}";
+		return str;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/commentDelete.do")
+	public String commentDelete(int cidx) {
+		
+		int result = cs.commentDelete(cidx);
+		String str = "{\"value\":\""+result+"\"}";
 		return str;
 	}
 }
