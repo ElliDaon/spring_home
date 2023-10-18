@@ -30,6 +30,32 @@
 		<beans:property name="maxUploadSize" value="10485760" />
 	</beans:bean>
 	
+	<!-- 인터셉터 등록 -->
+	<beans:bean id="authInterceptor" class="com.myhome.myapp.interceptor.Authinterceptor">
+	</beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/board/boardWrite.do"/>
+			<mapping path="/board/boardList.do"/>
+			<mapping path="/board/boardReply.do"/>
+			<mapping path="/board/boardDelete.do"/>
+			<mapping path="/board/boardContents.do"/>
+			<mapping path="/board/boardModify.do"/>
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
+	<beans:bean id="loginInterceptor" class="com.myhome.myapp.interceptor.LoginInterceptor">
+	</beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/memberLoginAction.do"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 	<context:component-scan base-package="com.myhome.myapp" />
 	
 	

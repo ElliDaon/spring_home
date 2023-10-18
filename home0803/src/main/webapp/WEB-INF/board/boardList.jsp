@@ -2,12 +2,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.myhome.myapp.domain.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<% 
-//포워드는 공유속성때문에 념겨받을 수 있다.
-//ArrayList<BoardVo> list = (ArrayList<BoardVo>)request.getAttribute("list");
-//PageMaker pm = (PageMaker)request.getAttribute("pm");
 
-%>
 
 <!DOCTYPE html>
 <html>

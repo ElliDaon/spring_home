@@ -9,14 +9,6 @@
 <meta charset="utf-8">
 <title>${bv.subject}</title>
 
-<c:if test="${ sessionScope.midx == null }">
-<script>
-alert("로그인이 필요합니다");
-<c:set var="login" value="${pageContext.request.contextPath}/member/memberLogin.do" />
-location.href="${login}";
-</script>
-</c:if>
-
 <link href="./css/board.css" type="text/css" rel="stylesheet">
 <!-- 1.cdn주소걸고 (라이브러리) -->
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -71,16 +63,17 @@ $.boardCommentList= function(){
 	
 	$.ajax({
 		type : "get",
-		url : "${pageContext.request.contextPath}/comment/commentList.do?bidx=${bv.bidx}",
+		url : "${pageContext.request.contextPath}/comment/${bv.bidx}/commentList.do",
 		dataType : "json",
 		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 		cache : false,
 		success : function(data){
 			//alert("통신성공");
-			commentList(data);
+			commentList(data.list);
 		},
 		error : function(){
 			alert("통신오류 실패");
+			
 		}		
 	});
 	

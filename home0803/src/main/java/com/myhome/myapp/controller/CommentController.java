@@ -1,74 +1,57 @@
 package com.myhome.myapp.controller;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.myhome.myapp.domain.CommentVo;
 import com.myhome.myapp.service.CommentService;
 
-@Controller
+@RestController
 @RequestMapping(value = "/comment")
 public class CommentController {
 	
 	@Autowired
 	private CommentService cs;
 	
-	@ResponseBody
-	@RequestMapping(value = "/commentList.do", produces = "application/text; charset=utf8")
-	public String commentList(@RequestParam("bidx") int bidx) {
+	
+	
+	@RequestMapping(value = "/{bidx}/commentList.do")
+	public JSONObject commentList(@PathVariable("bidx") int bidx) {
 		
-		String str = "";
 		ArrayList<CommentVo> list = cs.commentList(bidx);
-		int size = list.size();
-		int cidx = 0;
-		String cwriter = "";
-		String ccontents = "";
-		String cwriteday = "";
-		int midx = 0;
-		String comma = "";
-		for(int i=0; i<size; i++) {
-			cidx = list.get(i).getCidx();
-			cwriter = list.get(i).getCwriter();
-			ccontents = list.get(i).getCcontents();
-			cwriteday = list.get(i).getCwriteday();
-			midx = list.get(i).getMidx();
-			if(i==size-1) {
-				comma = "";
-			}else {
-				comma = ",";
-			}
-			str += "{\"cidx\":\""+cidx+"\",\"cwriter\":\""+cwriter+"\",\"ccontents\":\""+ccontents+"\",\"cwriteday\":\""+cwriteday+"\",\"midx\":\""+midx+"\"}"+comma;
-		}
+		JSONObject js = new JSONObject();
+		js.put("list", list);
 		
-		str = "["+str+"]";
-		return str;
+		return js;
 	}
 	
-	@ResponseBody
 	@RequestMapping(value = "/commentWrite.do")
-	public String commentWrite(CommentVo cv, HttpSession session) throws Exception {
+	public JSONObject commentWrite(CommentVo cv, HttpSession session) throws Exception {
 		String ip = InetAddress.getLocalHost().getHostAddress();
 		cv.setCip(ip);
-		int result = cs.commentWrite(cv);
-		String str = "{\"value\":\""+result+"\"}";
-		return str;
+		int value = cs.commentWrite(cv);
+		JSONObject js = new JSONObject();
+		js.put("value", value);
+		
+		return js;
 	}
 	
-	@ResponseBody
 	@RequestMapping(value = "/commentDelete.do")
-	public String commentDelete(int cidx) {
+	public JSONObject commentDelete(int cidx) {
 		
-		int result = cs.commentDelete(cidx);
-		String str = "{\"value\":\""+result+"\"}";
-		return str;
+		int value = cs.commentDelete(cidx);
+		JSONObject js = new JSONObject();
+		js.put("value",value);
+		
+		return js;
 	}
 }
